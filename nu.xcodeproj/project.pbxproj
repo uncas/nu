@@ -94,6 +94,11 @@
 			isa = PBXProject;
 			attributes = {
 				ORGANIZATIONNAME = Uncas;
+				TargetAttributes = {
+					385938CD794DF39696556485 = {
+						DevelopmentTeam = C743UF966U;
+					};
+				};
 			};
 			buildConfigurationList = 38593FC7EEEF123389899AFC /* Build configuration list for PBXProject "nu" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -206,6 +211,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = C743UF966U;
 				INFOPLIST_FILE = nu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = uncas.nu;
@@ -218,6 +224,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = C743UF966U;
 				INFOPLIST_FILE = nu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = uncas.nu;
@@ -296,6 +303,7 @@
 				385938197E50F5100AF3406B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
