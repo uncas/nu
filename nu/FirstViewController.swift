@@ -1,4 +1,5 @@
 import UIKit
+import AVFoundation
 
 class FirstViewController: UIViewController {
 
@@ -6,8 +7,10 @@ class FirstViewController: UIViewController {
         super.viewDidLoad()
         self.timeLegend.text = "Intro"
         resetText()
-        self.toggleButton.addTarget(nil, action: (#selector(FirstViewController.toggleTimer)), for: .touchDown)
-        self.stopButton.addTarget(nil, action: (#selector(FirstViewController.stopTimer)), for: .touchDown)
+        self.toggleButton.addTarget(
+                nil, action: (#selector(FirstViewController.toggleTimer)), for: .touchDown)
+        self.stopButton.addTarget(
+                nil, action: (#selector(FirstViewController.stopTimer)), for: .touchDown)
     }
 
     @IBOutlet weak var timeLabel: UILabel!
@@ -19,7 +22,7 @@ class FirstViewController: UIViewController {
     var timer = Timer()
     var isTimerRunning = false
 
-    func toggleTimer(){
+    func toggleTimer() {
         if self.isTimerRunning == false {
             runTimer()
             self.isTimerRunning = true
@@ -32,13 +35,27 @@ class FirstViewController: UIViewController {
     func updateTimer() {
         seconds -= 1
         setText()
+        if (seconds == 0) {
+            pauseTimer()
+            // https://github.com/TUNER88/iOSSystemSoundsLibrary
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+            let tweet: SystemSoundID = 1016
+            AudioServicesPlaySystemSound(tweet)
+        }
     }
 
-    func setText(){
-        self.timeLabel.text = String(seconds)
+    func setText() {
+        self.timeLabel.text = timeString(time: TimeInterval(seconds))
     }
 
-    func resetText(){
+    func timeString(time: TimeInterval) -> String {
+        let hours = Int(time) / 3600
+        let minutes = Int(time) / 60 % 60
+        let seconds = Int(time) % 60
+        return String(format: "%02i:%02i:%02i", hours, minutes, seconds)
+    }
+
+    func resetText() {
         if self.isTimerRunning == false {
             self.toggleButton.setTitle("Start", for: .normal)
         } else {
@@ -48,15 +65,20 @@ class FirstViewController: UIViewController {
     }
 
     func runTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(FirstViewController.updateTimer)), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(
+                timeInterval: 1,
+                target: self,
+                selector: (#selector(FirstViewController.updateTimer)),
+                userInfo: nil,
+                repeats: true)
     }
 
-    func pauseTimer(){
+    func pauseTimer() {
         timer.invalidate()
         self.isTimerRunning = false
     }
 
-    func stopTimer(){
+    func stopTimer() {
         pauseTimer()
         seconds = 60
         resetText()
