@@ -1,6 +1,10 @@
 import UIKit
 import AVFoundation
 
+struct MeditationConstants {
+    static let duration = 11 * 60
+}
+
 class FirstViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -18,7 +22,7 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var toggleButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
 
-    var seconds = 60
+    var seconds = MeditationConstants.duration
     var timer = Timer()
     var isTimerRunning = false
 
@@ -80,7 +84,7 @@ class FirstViewController: UIViewController {
 
     func stopTimer() {
         pauseTimer()
-        seconds = 60
+        seconds = MeditationConstants.duration
         resetText()
     }
 }
