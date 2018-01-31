@@ -19,7 +19,6 @@ struct MeditationConstants {
     func toggle() {
         if self.isRunning == false {
             start()
-            self.isRunning = true
         } else {
             pause()
         }
@@ -33,11 +32,14 @@ struct MeditationConstants {
                 selector: (#selector(MeditationTimer.update)),
                 userInfo: nil,
                 repeats: true)
+        self.isRunning = true
+        UIApplication.shared.isIdleTimerDisabled = true
     }
 
     func pause() {
         timer.invalidate()
         self.isRunning = false
+        UIApplication.shared.isIdleTimerDisabled = false
     }
 
     func setText() {
