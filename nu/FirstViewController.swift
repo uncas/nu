@@ -1,19 +1,24 @@
 import UIKit
 import AVFoundation
 
-struct MeditationConstants {
-    static let duration = 11 * 60
+protocol ListenToTimerDelegate: class {
+    func didFinishTimer()
 }
 
 @objc class MeditationTimer: NSObject {
-    var seconds = MeditationConstants.duration
+    var seconds: Int = 0
     var timer = Timer()
     var isRunning = false
+    weak var delegate: ListenToTimerDelegate?
+    var initialMinutes: Int = 1
 
     var label: UILabel!
 
-    init(withLabel label: UILabel) {
+    init(withLabel label: UILabel, minutes: Int, delegate: ListenToTimerDelegate) {
         self.label = label
+        self.delegate = delegate
+        self.initialMinutes = minutes
+        self.seconds = minutes * 10
     }
 
     func toggle() {
@@ -55,7 +60,7 @@ struct MeditationConstants {
 
     func stop() {
         pause()
-        seconds = MeditationConstants.duration
+        self.seconds = self.initialMinutes * 60
         setText()
     }
 
@@ -68,21 +73,22 @@ struct MeditationConstants {
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
             let tweet: SystemSoundID = 1016
             AudioServicesPlaySystemSound(tweet)
+            delegate?.didFinishTimer()
         }
     }
 }
 
-class FirstViewController: UIViewController {
-
+class FirstViewController: UIViewController, ListenToTimerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.timeLegend.text = "Intro"
-        self.timer = MeditationTimer(withLabel: timeLabel)
-        resetText()
         self.toggleButton.addTarget(
                 nil, action: (#selector(FirstViewController.toggleTimer)), for: .touchDown)
         self.stopButton.addTarget(
                 nil, action: (#selector(FirstViewController.stopTimer)), for: .touchDown)
+        // 45s forberedelse, 11m, 11m, 11m, 10s
+        self.steps = [TimerStep("Intro", 1), TimerStep("Fase 1", 2)]
+        initializeTimer()
+        resetText()
     }
 
     @IBOutlet weak var timeLabel: UILabel!
@@ -90,6 +96,14 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var toggleButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     var timer: MeditationTimer? = nil
+    var steps: [TimerStep] = []
+    var currentStepIndex: Int = 0
+
+    private func initializeTimer() {
+        let currentStep = self.steps[self.currentStepIndex]
+        let minutes = currentStep.minutes
+        self.timer = MeditationTimer(withLabel: timeLabel, minutes: minutes, delegate: self)
+    }
 
     func toggleTimer() {
         timer!.toggle()
@@ -97,6 +111,7 @@ class FirstViewController: UIViewController {
     }
 
     func resetText() {
+        self.timeLegend.text = self.steps[self.currentStepIndex].name
         if self.timer!.isRunning == false {
             self.toggleButton.setTitle("Start", for: .normal)
         } else {
@@ -108,5 +123,15 @@ class FirstViewController: UIViewController {
     func stopTimer() {
         timer!.stop()
         resetText()
+    }
+
+    func didFinishTimer() {
+        if self.currentStepIndex == self.steps.count - 1 {
+            return
+        }
+
+        self.currentStepIndex += 1
+        self.initializeTimer()
+        self.toggleTimer()
     }
 }

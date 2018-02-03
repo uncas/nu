@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		385935F421B407C53C486099 /* TimerStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3859301003A925262EA56330 /* TimerStep.swift */; };
 		385936DFB8222380C80ABF00 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38593CE7732401FF80DACC49 /* LaunchScreen.storyboard */; };
 		38593978D3E2B6FA4D39AD00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38593BB1769E4BBC684AD033 /* Main.storyboard */; };
 		38593D0395E31C31D224C43B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38593ACE94C10A0793047BCC /* AppDelegate.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3859301003A925262EA56330 /* TimerStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerStep.swift; sourceTree = "<group>"; };
 		38593460C904FA8E3DE7896E /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		385934AB9F858B2E01A04334 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		38593651DFC20485F4A30697 /* nu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,8 +49,17 @@
 				38593BB1769E4BBC684AD033 /* Main.storyboard */,
 				3859399AF1F35D81D987F8CF /* FirstViewController.swift */,
 				38593460C904FA8E3DE7896E /* SecondViewController.swift */,
+				3859384AE55ECBEF31B2D244 /* Model */,
 			);
 			path = nu;
+			sourceTree = "<group>";
+		};
+		3859384AE55ECBEF31B2D244 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3859301003A925262EA56330 /* TimerStep.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		38593D40DB6EBC3062C83CE4 /* Products */ = {
@@ -138,6 +149,7 @@
 				38593D0395E31C31D224C43B /* AppDelegate.swift in Sources */,
 				38593D07247CD0CCD9E3DE45 /* FirstViewController.swift in Sources */,
 				38593E852C3781D5BD6577FB /* SecondViewController.swift in Sources */,
+				385935F421B407C53C486099 /* TimerStep.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
